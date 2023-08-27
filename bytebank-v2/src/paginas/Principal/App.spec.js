@@ -2,6 +2,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
+import AppRoutes from '../../routes';
 
 describe('Componente <App />', () => {
   test('Deve exibir informacao de transacao apos a ocorrencia da mesma', () => {
@@ -23,5 +24,21 @@ describe('Componente <App />', () => {
     const itemListaTransacoesExtrato = screen.getByRole('listitem');
 
     expect(listaTransacoesExtrato).toContainElement(itemListaTransacoesExtrato);
+  });
+
+  test('Deve redirecionar o usuario para a pagina escolhida', () => {
+    render(
+      <MemoryRouter>
+        <AppRoutes />
+      </MemoryRouter>
+    );
+
+    const rotaCartoes = '/cartoes';
+    const botaoRedirecionamentoPaginaCartoes = screen.getByText('Cartões');
+
+    userEvent.click(botaoRedirecionamentoPaginaCartoes);
+
+    const tituloPaginaCartoes = screen.getByTestId('titulo-principal');
+    expect(tituloPaginaCartoes).toBeInTheDocument();
   });
 });
