@@ -26,4 +26,16 @@ describe('Rotas', () => {
     const tituloPaginaCartoes = screen.getByTestId('titulo-principal');
     expect(tituloPaginaCartoes).toHaveTextContent('Meus cartões');
   });
+
+  test('Deve renderizar localizacao da rota atual', () => {
+    const rota = '/cartoes';
+
+    render(
+      <MemoryRouter initialEntries={[rota]}>
+        <App />
+      </MemoryRouter>
+    );
+    const localizacao = screen.getByTestId('location');
+    expect(localizacao).toHaveTextContent(rota);
+  });
 });
