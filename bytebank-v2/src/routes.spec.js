@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { BrowserRouter, MemoryRouter, Routes, Route } from 'react-router-dom';
 import App from './paginas/Principal/App';
 import Cartoes from './componentes/Cartoes/index';
+import AppRoutes from './routes';
 
 describe('Rotas', () => {
   test('Rota principal', () => {
@@ -37,5 +38,18 @@ describe('Rotas', () => {
     );
     const localizacao = screen.getByTestId('location');
     expect(localizacao).toHaveTextContent(rota);
+  });
+
+  test('Deve renderizar pagina de 404', () => {
+    const rota = '/extrato';
+
+    render(
+      <MemoryRouter initialEntries={[rota]}>
+        <AppRoutes />
+      </MemoryRouter>
+    );
+
+    const pagina404 = screen.getByTestId('pagina-404');
+    expect(pagina404).toMatchSnapshot();
   });
 });

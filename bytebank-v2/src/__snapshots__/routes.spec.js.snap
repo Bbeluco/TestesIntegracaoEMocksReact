@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rotas Deve renderizar pagina de 404 1`] = `
+<div
+  class="container"
+  data-testid="pagina-404"
+>
+  <h1>
+    Ops! Não encontramos a página
+  </h1>
+  <p>
+    E olha que exploramos o universo procurando por ela! Que tal voltar e tentar novamente?
+  </p>
+  <a
+    class="link"
+    href="/"
+  >
+    Voltar ao início
+  </a>
+  <img
+    alt="Imagem ilustrativa do espaço"
+    src="404.svg"
+  />
+</div>
+`;
