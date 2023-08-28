@@ -1,3 +1,4 @@
+import Transacoes from '../componentes/Extrato/Transacoes';
 import api from './api';
 import { buscaTransacoes } from './transacoes';
 
@@ -19,8 +20,26 @@ const mockRequisicao = () => {
   });
 };
 
-test('Teste utilizando mocks', async () => {
-  api.get.mockImplementation(() => mockRequisicao());
-  const transacao = await buscaTransacoes();
-  expect(transacao).toEqual(mockRetornoTransacao);
+const mockRequisicaoFalha = () => {
+  return new Promise((_, reject) => {
+    setTimeout(() => {
+      reject();
+    }, 200);
+  });
+};
+
+describe('Testes utilizando mocks', () => {
+  test('Mock requisicao de sucesso', async () => {
+    api.get.mockImplementation(() => mockRequisicao());
+    const transacao = await buscaTransacoes();
+    expect(transacao).toEqual(mockRetornoTransacao);
+    expect(api.get).toBeCalledWith('/transacoes');
+  });
+
+  test('Mock requisicao de erro', async () => {
+    api.get.mockImplementation(() => mockRequisicaoFalha());
+    const transacao = await buscaTransacoes();
+    expect(transacao).toEqual([]);
+    expect(api.get).toBeCalledWith('/transacoes');
+  });
 });
