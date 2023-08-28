@@ -9,7 +9,7 @@ export default function Investimentos() {
       <div className="detalhe__superior" />
       <div className={estilos.wrapper}>
         <div className={estilos.investimentos}>
-          <h2>Investimentos</h2>
+          <h2 data-testid="titulo-investimentos">Investimentos</h2>
           <p>Total: R$ 1.000.000,00</p>
         </div>
         <div className={estilos.aplicacoes}>

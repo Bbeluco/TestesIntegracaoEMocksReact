@@ -33,12 +33,28 @@ describe('Componente <App />', () => {
       </MemoryRouter>
     );
 
-    const rotaCartoes = '/cartoes';
     const botaoRedirecionamentoPaginaCartoes = screen.getByText('Cartões');
 
     userEvent.click(botaoRedirecionamentoPaginaCartoes);
 
     const tituloPaginaCartoes = screen.getByTestId('titulo-principal');
     expect(tituloPaginaCartoes).toBeInTheDocument();
+  });
+
+  test('Deve redirecionar o usuario para a pagina de investimentos', async () => {
+    render(
+      <MemoryRouter>
+        <AppRoutes />
+      </MemoryRouter>
+    );
+
+    const botaoRedirecionamentoPaginaInvestimentos =
+      screen.getByText('Investimentos');
+    userEvent.click(botaoRedirecionamentoPaginaInvestimentos);
+
+    const tituloPaginaInvestimentos = await screen.findByTestId(
+      'titulo-investimentos'
+    );
+    expect(tituloPaginaInvestimentos).toBeInTheDocument();
   });
 });
