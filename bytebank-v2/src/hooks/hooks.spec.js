@@ -1,9 +1,12 @@
 import { act, renderHook } from '@testing-library/react';
 import { useEffect, useState } from 'react';
 import { buscaTransacoes } from '../services/transacoes';
+import { buscaSaldo } from '../services/saldo';
 import useListaTransacoes from './useListaTransacoes';
+import useSaldo from './useSaldo';
 
 jest.mock('../services/transacoes');
+jest.mock('../services/saldo');
 
 const mockTransacao = [
   {
@@ -40,5 +43,18 @@ describe('Testando hooks', () => {
     });
 
     expect(result.current[0]).toEqual(mockTransacao);
+  });
+
+  test('Hook useSaldo', async () => {
+    buscaSaldo.mockImplementation(() => 1000);
+
+    const { result } = renderHook(() => useSaldo());
+    expect(result.current[0]).toEqual(0);
+
+    await act(async () => {
+      result.current[1]();
+    });
+
+    expect(result.current[0]).toEqual(1000);
   });
 });
